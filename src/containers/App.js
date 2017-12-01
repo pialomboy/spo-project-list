@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import TestComponent from './TestComponent';
 
 import pnp from 'sp-pnp-js';
 
@@ -9,7 +9,7 @@ import pnp from 'sp-pnp-js';
 // // GET /_api/web
 // // r = return value containing all sp lists on the site.
 // pnp.sp.web.lists.get().then(r => {
-//   console.log('Got lists: ', r);
+//   console.log('Got lists: ', r);o
 // });
 
 // // GET /_api/web/lists/getByTitle('Tasks')
@@ -55,18 +55,17 @@ class App extends Component {
   }
 
 
-
-
-
+  
   render() {
     return (
-      <ul>
-        {
-          this.state.projectRegistry.map((item) =>
-            <li key={item.Id}>{item.Title}</li>
-          )
-        }
-      </ul>
+      // <ul>
+      //   {
+      //     this.state.projectRegistry.map((item) =>
+      //       <li key={item.Id}>{item.Title}</li>
+      //     )
+      //   }
+      // </ul>
+      <TestComponent />
     );
   }
 }
