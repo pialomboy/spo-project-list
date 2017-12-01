@@ -2,7 +2,7 @@ import React from 'react';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 // import { Label } from 'office-ui-fabric-react/lib/Label';
 
-export class TestComponent extends React.Component {
+export class OfficeUIButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,4 +41,4 @@ export class TestComponent extends React.Component {
     }
 }
 
-export default TestComponent;
+export default OfficeUIButton;
