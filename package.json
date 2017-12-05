@@ -8,7 +8,8 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-scripts": "1.0.17",
-    "sp-pnp-js": "3.0.2"
+    "sp-pnp-js": "3.0.2",
+    "styled-components": "2.2.4"
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",

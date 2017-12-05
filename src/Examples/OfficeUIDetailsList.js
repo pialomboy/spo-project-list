@@ -24,13 +24,13 @@ const items = [
 
 const columns = [
     {
-        key: 'column1',
+        key: 'title',
         name: 'Title',
         fieldName: 'title',
         isResizable: true,
     },
     {
-        key: 'column2',
+        key: 'version',
         name: 'Document Version',
         fieldName: 'version',
         isResizable: true,

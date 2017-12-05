@@ -41,31 +41,31 @@ const names = {
 
 const columns = [
     {
-        key: 'ID',
+        key: names.id,
         name: 'ID',
         fieldName: names.id,
         isResizable: true,
     },
     {
-        key: 'title',
+        key: names.title,
         name: 'Title',
         fieldName: names.title,
         isResizable: true,
     },
     {
-        key: 'documentVersion',
+        key: names.documentVersion,
         name: 'Document Version',
         fieldName: names.documentVersion,
         isResizable: true,
     },
     {
-        key: 'createdDate',
+        key: names.createdDate,
         name: 'Created Date',
         fieldName: names.createdDate,
         isResizable: true,
     },
     {
-        key: 'completedDate',
+        key: names.completedDate,
         name: 'Completed Date',
         fieldName: names.completedDate,
         isResizable: true,
