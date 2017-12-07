@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 // import OfficeUIButton from './OfficeUIButton';
 // import OfficeUIDetailsList from './OfficeUIDetailsList';
-import OfficeUIDetailsListEnhanced from './OfficeUIDetailsListEnhanced';
+import ComponentsList from './ComponentsList';
 // import OfficeUIDetailsListSP from './OfficeUIDetailsListSP';
 // import SpPnpJsList from './SpPnpJsList';
 
@@ -11,7 +11,7 @@ class ExamplesApp extends Component {
     return (
       // <OfficeUIButton />
       // <OfficeUIDetailsList />
-      <OfficeUIDetailsListEnhanced />
+      <ComponentsList />
       // <OfficeUIDetailsListSP />
       // <SpPnpJsList />
     );

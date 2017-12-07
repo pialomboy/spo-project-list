@@ -36,7 +36,7 @@ const columns = [
 ];
 
 
-class OfficeUIDetailsListEnhanced extends Component {
+class ComponentsList extends Component {
   render() {
     return (
       <List
@@ -48,4 +48,4 @@ class OfficeUIDetailsListEnhanced extends Component {
   }
 }
 
-export default OfficeUIDetailsListEnhanced;
+export default ComponentsList;
