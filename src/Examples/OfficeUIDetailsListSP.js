@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import pnp from 'sp-pnp-js';
+import pnp, { Web } from 'sp-pnp-js';
 
 import {
     DetailsList,
     DetailsListLayoutMode,
 } from 'office-ui-fabric-react/lib/DetailsList';
 
-// GET /_api/web/lists/getByTitle('Tasks')/items(1)
-pnp.sp.web.lists.getByTitle("ProjectRegistry").items.getById(1).get().then(r => {
-    //   const names = {
-    //     completedDate: 'sdin',
-    //   };
-    //   d = r[names.completedDate];
-    console.log(r)
-});
+// // GET /_api/web/lists/getByTitle('Tasks')/items(1)
+// pnp.sp.web.lists.getByTitle("ProjectRegistry").items.getById(1).get().then(r => {
+//     //   const names = {
+//     //     completedDate: 'sdin',
+//     //   };
+//     //   d = r[names.completedDate];
+//     console.log(r)
+// });
+
+
+const site = new Web('https://stateca.sharepoint.com/sites/Projects/');
+
+// site.lists.getByTitle('_ProjectRegistry').get().then(r => {
+//     console.log('pias thing she just did: ', r);
+// });
+
 
 const names = {
     id: 'ID',
@@ -82,7 +90,14 @@ class OfficeUIDetailsListSP extends Component {
     }
 
     componentDidMount() {
-        pnp.sp.web.lists.getByTitle("ProjectRegistry").items.get()
+        // SAME SITE:
+        // pnp.sp.web.lists.getByTitle("ProjectRegistry").items.get()
+        //     .then((items) => {
+        //         this.setState({ items });
+        //     });
+
+        // OTHER SITE:
+        site.lists.getByTitle("_ProjectRegistry").items.get()
             .then((items) => {
                 this.setState({ items });
             });

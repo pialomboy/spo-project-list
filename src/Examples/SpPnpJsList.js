@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
-import pnp from 'sp-pnp-js';
+import pnp, { Web } from 'sp-pnp-js';
 
-// let w = new Web("{https://stateca.sharepoint.com/sites/DevTest/DASandbox/Lists/ProjectRegistry/AllItems.aspx"}); 
-// const w = new $pnp.Web("{Site Url}");
+// USING DIFFERENT SP SITE
+let site = new Web('https://stateca.sharepoint.com/sites/Projects/'); 
+
+site.lists.getByTitle("_ProjectRegistry").get().then(r => {
+  console.log(r);
+});
+
+
+// USING SAME SP SITE
 
 // // GET /_api/web
 // // r = return value containing all sp lists on the site.
@@ -11,11 +18,10 @@ import pnp from 'sp-pnp-js';
 //   console.log('Got lists: ', r);o
 // });
 
-// // GET /_api/web/lists/getByTitle('Tasks')
-// pnp.sp.web.lists.getByTitle("ProjectRegistry").get().then(r => {
-
-//   console.log(r);
-// });
+// GET /_api/web/lists/getByTitle('Tasks')
+pnp.sp.web.lists.getByTitle("ProjectRegistry").get().then(r => {
+  console.log(r);
+});
 
 // // GET /_api/web/lists/getByTitle('Tasks')/items
 // pnp.sp.web.lists.getByTitle("ProjectRegistry").items.get().then(r => {
