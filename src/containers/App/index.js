@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import NewForm from '../NewForm';
 import ProjectList from '../ProjectList';
 
 import { getProjectRegistry } from './api';
 import columns from './columns';
+
 
 class App extends Component {
   constructor(props) {
@@ -17,10 +17,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    getProjectRegistry()
+    // log all items
+    getProjectRegistry().items.get()
+      .then((r) => {
+        console.log('ALL: ', r);
+      });
+    // log person
+    getProjectRegistry().items
+      .select('xxdf/Id')
+      .expand('xxdf').get()
+      .then((r) => {
+        console.log('PERSON: ', r);
+      });
+
+    getProjectRegistry().items.get()
       .then((items) => {
-        this.setState({ 
-          items, 
+        this.setState({
+          items,
           loading: false,
         });
       })

@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+
+import List from '../../components/List';
 
 
-class ProjectList extends Component {
+class ProjectList extends PureComponent {
   render() {
-    console.log('ProjectList - items: ', this.props.items)
-    console.log('ProjectList - columns: ', this.props.columns)
     return (
-      <div>
-          Project List
-      </div>
+      <List
+        title={'Example List (tooltips, sort, filter, title)'}
+        items={this.props.items}
+        columns={this.props.columns}
+      />
     );
   }
 }
