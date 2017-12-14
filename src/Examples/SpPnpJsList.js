@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import pnp, { Web } from 'sp-pnp-js';
 
 // USING DIFFERENT SP SITE
-let site = new Web('https://stateca.sharepoint.com/sites/Projects/'); 
+const site = new Web('https://stateca.sharepoint.com/sites/Projects/'); 
 
-site.lists.getByTitle("_ProjectRegistry").get().then(r => {
+site.lists.getByTitle('_ProjectRegistry').get().then((r) => {
   console.log(r);
 });
 
@@ -19,7 +19,7 @@ site.lists.getByTitle("_ProjectRegistry").get().then(r => {
 // });
 
 // GET /_api/web/lists/getByTitle('Tasks')
-pnp.sp.web.lists.getByTitle("ProjectRegistry").get().then(r => {
+pnp.sp.web.lists.getByTitle('ProjectRegistry').get().then((r) => {
   console.log(r);
 });
 
@@ -48,7 +48,7 @@ class SpPnpJsList extends Component {
   }
 
   componentDidMount() {
-    pnp.sp.web.lists.getByTitle("ProjectRegistry").items.get().then(r => {
+    pnp.sp.web.lists.getByTitle('ProjectRegistry').items.get().then((r) => {
       const newState = {
         projectRegistry: r,
       };
@@ -60,9 +60,9 @@ class SpPnpJsList extends Component {
     return (
       <ul>
         {
-          this.state.projectRegistry.map((item) =>
+          this.state.projectRegistry.map(item => (
             <li key={item.Id}>{item.Title}</li>
-          )
+           ))
         }
       </ul>
     );

@@ -7,7 +7,7 @@ export class OfficeUIButton extends React.Component {
         super(props);
         this.state = {
             primary: true,
-        }
+        };
     }
 
     alertClicked = () => {
@@ -20,7 +20,7 @@ export class OfficeUIButton extends React.Component {
         const disabled = false;
 
         return (
-            <div className='ms-BasicButtonsTwoUp'>
+            <div className={'ms-BasicButtonsTwoUp'}>
                 <div>
                     {/* <Label>Standard</Label>
                     <DefaultButton
@@ -33,7 +33,7 @@ export class OfficeUIButton extends React.Component {
                     primary={this.state.primary}
                     disabled={disabled}
                     checked={checked}
-                    text='This is Text'
+                    text={'This is Text'}
                     onClick={this.alertClicked}
                 />
             </div>

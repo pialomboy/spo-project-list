@@ -6,14 +6,14 @@ import {
     DetailsListLayoutMode,
 } from 'office-ui-fabric-react/lib/DetailsList';
 
-// // GET /_api/web/lists/getByTitle('Tasks')/items(1)
-// pnp.sp.web.lists.getByTitle("ProjectRegistry").items.getById(1).get().then(r => {
-//     //   const names = {
-//     //     completedDate: 'sdin',
-//     //   };
-//     //   d = r[names.completedDate];
-//     console.log(r)
-// });
+// GET /_api/web/lists/getByTitle('Tasks')/items(1)
+pnp.sp.web.lists.getByTitle('ProjectRegistry').items.getById(1).get().then((r) => {
+    //   const names = {
+    //     completedDate: 'sdin',
+    //   };
+    //   d = r[names.completedDate];
+    console.log(r);
+});
 
 
 const site = new Web('https://stateca.sharepoint.com/sites/Projects/');
@@ -97,7 +97,7 @@ class OfficeUIDetailsListSP extends Component {
         //     });
 
         // OTHER SITE:
-        site.lists.getByTitle("_ProjectRegistry").items.get()
+        site.lists.getByTitle('_ProjectRegistry').items.get()
             .then((items) => {
                 this.setState({ items });
             });

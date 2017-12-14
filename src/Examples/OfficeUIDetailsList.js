@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import {
     DetailsList,
-    DetailsListLayoutMode,
-    Selection,
 } from 'office-ui-fabric-react/lib/DetailsList';
 
 
