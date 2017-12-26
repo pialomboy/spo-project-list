@@ -22,7 +22,7 @@ import EmptyMessage from './EmptyMessage';
  * item selected. Calls the callback with item if passed one.
  *
  * @param {object} component    - component to set state on (will be `this`)
- * @param {object} selection    - instance of `Selection` to use
+ * @param {object} selection    - instance of `Selection` to useo
  * @param {func} callback       - called if item is selected
  */
 export const handleSelectItem = (component, selection, callback) => {

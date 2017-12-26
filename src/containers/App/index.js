@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 
 import ProjectList from '../ProjectList';
 
-import { getProjectRegistry } from './api';
-import columns from './columns';
+import { getProjectRegistry, getUsers } from './api';
+import mapColumns from './columns';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      columns: [],
       items: [],
       loading: true,
       error: null,
@@ -17,33 +18,35 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // log all items
-    getProjectRegistry().items.get()
-      .then((r) => {
-        console.log('ALL: ', r);
-      });
-    // log person
-    getProjectRegistry().items
-      .select('xxdf/Id')
-      .expand('xxdf').get()
-      .then((r) => {
-        console.log('PERSON: ', r);
-      });
-
-    getProjectRegistry().items.get()
-      .then((items) => {
+    Promise.all([
+      getProjectRegistry().items.get(),
+      getUsers().get(),
+    ])
+      .then(([items, users]) => {
         this.setState({
           items,
+          columns: mapColumns(users),
           loading: false,
         });
       })
       .catch((error) => {
         this.setState({ error: error.message });
       });
+
+    // // log all items
+    // getProjectRegistry().items.get()
+    //   .then((r) => {
+    //     console.log('ALL: ', r);
+    //   });
   }
 
   render() {
-    const { items, loading, error } = this.state;
+    const {
+      items,
+      columns,
+      loading,
+      error,
+    } = this.state;
 
     if (error) {
       return <p>{error}</p>;
