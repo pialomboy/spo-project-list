@@ -2,7 +2,7 @@
   "name": "spo-project-list",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://stateca.sharepoint.com/sites/DevTest/DASandbox/SPFX/PiaSharePoint",
+  "homepage": "https://stateca.sharepoint.com/SiteCode/project-registry",
   "dependencies": {
     "lodash.keyby": "4.6.0",
     "office-ui-fabric-react": "5.29.0",
