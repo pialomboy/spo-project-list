@@ -12,31 +12,36 @@ export const types = {
     date: 'date',
 };
 
-export function mapColumns(fields, users) {
+export function mapColumns(fields, keys, users) {
     const mappedUsers = keyBy(users, 'Id');
-
-    return Object.values(fields).map(field => ({
-        key: field.key,
-        fieldName: field.key,
-        name: field.name,
-        isResizable: true,
-        data: {
-            type: field.type,
-        },
-        onRender: (item, index, column) => {
-            const selected = item[column.key];
-            switch (column.data.type) {
-                case types.url:
-                    return <a href={selected.Url} target={'_blank'}>{selected.Description}</a>;
-                case types.mutliLine:
-                    return renderMultiLine(selected);
-                case types.person:
-                    return <a href={`mailto:${mappedUsers[selected].Email}`}>{mappedUsers[selected].Title}</a>;
-                case types.date:
-                    return formatDate(selected);                    
-                default:
-                    return String(selected);
-            }
-        },
-    }));
+    
+    return keys.map((key) => {
+        const field = fields[key];
+        return ({
+            key: field.key,
+            fieldName: field.key,
+            name: field.name,
+            isResizable: true,
+            minWidth: 100,
+            maxWidth: 200,
+            data: {
+                type: field.type,
+            },
+            onRender: (item, index, column) => {
+                const selected = item[column.key];
+                switch (column.data.type) {
+                    case types.url:
+                        return <a href={selected.Url} target={'_blank'}>{selected.Description}</a>;
+                    case types.mutliLine:
+                        return renderMultiLine(selected);
+                    case types.person:
+                        return <a href={`mailto:${mappedUsers[selected].Email}`}>{mappedUsers[selected].Title}</a>;
+                    case types.date:
+                        return formatDate(selected);
+                    default:
+                        return String(selected);
+                }
+            },
+        });
+    });
 }

@@ -4,7 +4,7 @@ import { mapColumns } from '../../utils/data';
 import ProjectList from '../ProjectList';
 
 import { getProjectRegistry, getUsers } from './api';
-import fields from './data';
+import { fields, keys } from './data';
 
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
       .then(([items, users]) => {
         this.setState({
           items,
-          columns: mapColumns(fields, users),
+          columns: mapColumns(fields, keys.home, users),
           loading: false,
         });
       })

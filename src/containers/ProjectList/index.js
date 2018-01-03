@@ -10,6 +10,7 @@ class ProjectList extends PureComponent {
         title={'Project Registry'}
         items={this.props.items}
         columns={this.props.columns}
+        selectionMode={0}
       />
     );
   }

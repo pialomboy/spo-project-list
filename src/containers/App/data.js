@@ -1,6 +1,6 @@
-import { types } from '../../utils/data'; 
+import { types } from '../../utils/data';
 
-export default {
+export const fields = {
     id: { key: 'ID', name: 'ID' },
     title: { key: 'Title', name: 'Title' },
     acronym: { key: 'xq0l', name: 'Acronym' },
@@ -15,4 +15,17 @@ export default {
     remedyTicketNo: { key: 'ia5c', name: 'Remedy Ticket No.' },
     siteUrl: { key: 'Site_x0020_URL', name: 'Site URL', type: types.url },
     metaData: { key: 'Meta_x0020_Data', name: 'Meta Data' },
+};
+
+
+export const keys = {
+    home: [
+        'title',
+        'projectManager',
+        'sponsor',
+        'office',
+        'startDate',
+        'endDate',
+    ],
+    details: Object.keys(fields),
 };
