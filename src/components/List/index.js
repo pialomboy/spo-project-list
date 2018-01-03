@@ -40,7 +40,7 @@ export const handleSelectItem = (component, selection, callback) => {
   }
   // set that item as selected, do callback if one is actually selected
   component.setState({ selectedItem: item }, () => (
-    callback && item.id ? callback(item) : null
+    callback && Object.keys(item).length ? callback(item) : null
   ));
 };
 

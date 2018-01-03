@@ -1,7 +1,10 @@
+/* eslint-disable */
 import React, { Component } from 'react';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 
 import { mapColumns } from '../../utils/data';
 import ProjectList from '../ProjectList';
+import ProjectDetails from '../ProjectDetails';
 
 import { getProjectRegistry, getUsers } from './api';
 import { fields, keys } from './data';
@@ -11,10 +14,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      columns: [],
+      item: {},
       items: [],
+      columns: {
+        home: [],
+        details: [],
+      },
       loading: true,
       error: null,
+      hideDetails: true,
     };
   }
 
@@ -24,9 +32,14 @@ class App extends Component {
       getUsers().get(),
     ])
       .then(([items, users]) => {
+        const columns = {
+          home: mapColumns(fields, keys.home, users),
+          details: mapColumns(fields, keys.details, users),
+        };
+
         this.setState({
           items,
-          columns: mapColumns(fields, keys.home, users),
+          columns,
           loading: false,
         });
       })
@@ -41,25 +54,59 @@ class App extends Component {
     //   });
   }
 
+  showDetails = (item) => {
+    this.setState({ item, hideDetails: false });
+  }
+
+  hideDetails = () => {
+    this.setState({ hideDetails: true });
+  }
+
   render() {
     const {
+      item,
       items,
       columns,
       loading,
       error,
+      hideDetails,
     } = this.state;
 
+    // ERROR
     if (error) {
       return <p>{error}</p>;
     }
 
+    // LOADING
+    if (loading) {
+      const loadingProps = {
+        size: SpinnerSize.large,
+        label: 'Loading...',
+        ariaLive: 'assertive',
+      };
+
+      return <Spinner {...loadingProps} />;
+    }
+    
+    // PROJECTS LIST AND DETAILS
+    const listProps = {
+      items,
+      columns: columns.home,
+      onSelect: this.showDetails,
+    };
+    
+    const detailsProps = {
+      item,
+      columns: columns.details,
+      title: item[fields.title.key],
+      hidden: hideDetails,
+      onDismiss: this.hideDetails,
+    };
+
     return (
       <div>
-        {
-          loading ?
-            <p>loading....</p> :
-            <ProjectList items={items} columns={columns} />
-        }
+        <ProjectList {...listProps} />
+        <ProjectDetails {...detailsProps} />
       </div>
     );
   }
