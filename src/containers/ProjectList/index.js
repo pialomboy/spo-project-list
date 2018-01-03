@@ -7,7 +7,7 @@ class ProjectList extends PureComponent {
   render() {
     return (
       <List
-        title={'Example List (tooltips, sort, filter, title)'}
+        title={'Project Registry'}
         items={this.props.items}
         columns={this.props.columns}
       />

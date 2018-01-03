@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
+import { mapColumns } from '../../utils/data';
 import ProjectList from '../ProjectList';
 
 import { getProjectRegistry, getUsers } from './api';
-import mapColumns from './columns';
+import fields from './data';
 
 
 class App extends Component {
@@ -25,7 +26,7 @@ class App extends Component {
       .then(([items, users]) => {
         this.setState({
           items,
-          columns: mapColumns(users),
+          columns: mapColumns(fields, users),
           loading: false,
         });
       })
@@ -54,7 +55,6 @@ class App extends Component {
 
     return (
       <div>
-        <h2>Project Registry Online (PRO)</h2>
         {
           loading ?
             <p>loading....</p> :
