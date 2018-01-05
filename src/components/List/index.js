@@ -206,7 +206,10 @@ class List extends React.PureComponent {
     return (
       <Wrapper>
         <Header>
-          <Title>{title}</Title>
+          {
+            title && 
+            <Title>{title}</Title>
+          }
           <Search
             onChange={this.handleSearch}
           />

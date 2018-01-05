@@ -1,8 +1,9 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 
+import Loading from '../../components/Loading';
 import { mapColumns } from '../../utils/data';
+
 import ProjectList from '../ProjectList';
 import ProjectDetails from '../ProjectDetails';
 
@@ -47,11 +48,11 @@ class App extends Component {
         this.setState({ error: error.message });
       });
 
-    // // log all items
-    // getProjectRegistry().items.get()
-    //   .then((r) => {
-    //     console.log('ALL: ', r);
-    //   });
+    // log all items
+    getProjectRegistry().items.get()
+      .then((r) => {
+        console.log('ALL: ', r);
+      });
   }
 
   showDetails = (item) => {
@@ -79,13 +80,7 @@ class App extends Component {
 
     // LOADING
     if (loading) {
-      const loadingProps = {
-        size: SpinnerSize.large,
-        label: 'Loading...',
-        ariaLive: 'assertive',
-      };
-
-      return <Spinner {...loadingProps} />;
+      return <Loading />;
     }
     
     // PROJECTS LIST AND DETAILS

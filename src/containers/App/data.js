@@ -14,7 +14,7 @@ export const fields = {
     officesParticipating: { key: 'Offices_x0020_Participating', name: 'Offices Participating', type: types.mutliLine },
     remedyTicketNo: { key: 'ia5c', name: 'Remedy Ticket No.' },
     siteUrl: { key: 'Site_x0020_URL', name: 'Site URL', type: types.url },
-    metaData: { key: 'Meta_x0020_Data', name: 'Meta Data' },
+    metaData: { key: 'Meta_x0020_Data', name: 'Meta Data', type: types.mutliLine },
 };
 
 

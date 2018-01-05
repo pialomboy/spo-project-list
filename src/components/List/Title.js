@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-
+const Title = styled.h2`
+    flex: 1;
 `;
 
-export default Wrapper;
+export default Title;

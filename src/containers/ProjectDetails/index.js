@@ -15,6 +15,10 @@ const StyledDialog = styled(Dialog)`
             max-width: 500px;
         }
     }
+
+    .ms-List-cell:not(:last-child) {
+        border-bottom: 1px solid #efefef;
+    }
 `;
 
 
