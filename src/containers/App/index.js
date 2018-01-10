@@ -93,7 +93,7 @@ class App extends Component {
     const detailsProps = {
       item,
       columns: columns.details,
-      title: item[fields.title.key],
+      title: `${item[fields.title.key]} (${item[fields.acronym.key]})`,
       hidden: hideDetails,
       onDismiss: this.hideDetails,
     };

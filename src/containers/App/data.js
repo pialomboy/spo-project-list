@@ -2,7 +2,7 @@ import { types } from '../../utils/data';
 
 export const fields = {
     id: { key: 'ID', name: 'ID' },
-    title: { key: 'Title', name: 'Title' },
+    title: { key: 'Title', name: 'Title', type: types.title },
     acronym: { key: 'xq0l', name: 'Acronym' },
     startDate: { key: 'z5y5', name: 'Start Date', type: types.date },
     endDate: { key: 'hguu', name: 'End Date', type: types.date },
@@ -28,7 +28,6 @@ export const keys = {
         'endDate',
     ],
     details: [
-        'acronym',
         'siteUrl',
         'startDate',
         'endDate',

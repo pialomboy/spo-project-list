@@ -16,8 +16,12 @@ const StyledDialog = styled(Dialog)`
         }
     }
 
-    .ms-List-cell:not(:last-child) {
+    .ms-List-page > .ms-List-cell {
         border-bottom: 1px solid #efefef;
+    }
+
+    .ms-List-page:last-child > .ms-List-cell:last-child {
+        border-bottom: none;
     }
 `;
 

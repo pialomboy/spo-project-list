@@ -7,6 +7,7 @@ import { formatDate } from './date';
 
 export const types = {
     url: 'url',
+    title: 'title',
     mutliLine: 'multiLine',
     person: 'person',
     date: 'date',
@@ -38,6 +39,8 @@ export function mapColumns(fields, keys, users) {
                         return <a href={`mailto:${mappedUsers[selected].Email}`}>{mappedUsers[selected].Title}</a>;
                     case types.date:
                         return formatDate(selected);
+                    case types.title:
+                        return `${selected} (${item[fields.acronym.key]})`;
                     default:
                         return String(selected);
                 }
