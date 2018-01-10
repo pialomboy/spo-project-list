@@ -1,5 +1,6 @@
 import React from 'react';
 import keyBy from 'lodash.keyby';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 
 import { renderMultiLine } from './string';
 import { formatDate } from './date';
@@ -15,7 +16,7 @@ export const types = {
 
 export function mapColumns(fields, keys, users) {
     const mappedUsers = keyBy(users, 'Id');
-    
+
     return keys.map((key) => {
         const field = fields[key];
         return ({
@@ -32,17 +33,17 @@ export function mapColumns(fields, keys, users) {
                 const selected = item[column.key];
                 switch (column.data.type) {
                     case types.url:
-                        return <a href={selected.Url} target={'_blank'}>{selected.Description}</a>;
+                        return <Link href={selected.Url} target={'_blank'} data-selection-invoke>{selected.Description}</Link>;
                     case types.mutliLine:
                         return renderMultiLine(selected);
                     case types.person:
-                        return <a href={`mailto:${mappedUsers[selected].Email}`}>{mappedUsers[selected].Title}</a>;
+                        return <Link href={`mailto:${mappedUsers[selected].Email}`} data-selection-invoke>{mappedUsers[selected].Title}</Link>;
                     case types.date:
-                        return formatDate(selected);
+                        return <span>{formatDate(selected)}</span>;
                     case types.title:
-                        return `${selected} (${item[fields.acronym.key]})`;
+                        return <span>{`${selected} (${item[fields.acronym.key]})`}</span>;
                     default:
-                        return String(selected);
+                        return <span>{String(selected)}</span>;
                 }
             },
         });
