@@ -1,29 +1,10 @@
 import React, { PureComponent } from 'react';
-import styled from 'styled-components';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { List } from 'office-ui-fabric-react/lib/List';
 
 import Item from './Item';
 import Items from './Items';
-
-
-const StyledDialog = styled(Dialog)`
-    .ms-Dialog-main {
-        @media (min-width: 576px) {
-            width: 500px;
-            max-width: 500px;
-        }
-    }
-
-    .ms-List-page > .ms-List-cell {
-        border-bottom: 1px solid #efefef;
-    }
-
-    .ms-List-page:last-child > .ms-List-cell:last-child {
-        border-bottom: none;
-    }
-`;
 
 
 class ProjectDetails extends PureComponent {
@@ -65,13 +46,13 @@ class ProjectDetails extends PureComponent {
         };
 
         return (
-            <StyledDialog {...dialogProps}>
+            <Dialog {...dialogProps}>
                 <List {...itemsProps} />
 
                 <DialogFooter>
                     <DefaultButton {...closeBtnProps} />
                 </DialogFooter>
-            </StyledDialog>
+            </Dialog>
         );
     }
 }

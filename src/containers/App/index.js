@@ -48,11 +48,11 @@ class App extends Component {
         this.setState({ error: error.message });
       });
 
-    // log all items
-    getProjectRegistry().items.get()
-      .then((r) => {
-        console.log('ALL: ', r);
-      });
+    // // log all items
+    // getProjectRegistry().items.get()
+    //   .then((r) => {
+    //     console.log('ALL: ', r);
+    //   });
   }
 
   showDetails = (item) => {
