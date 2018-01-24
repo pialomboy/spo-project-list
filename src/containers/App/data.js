@@ -1,5 +1,6 @@
 import { types } from '../../utils/data';
 
+
 export const fields = {
     id: { key: 'ID', name: 'ID' },
     title: { key: 'Title', name: 'Title', type: types.title },
@@ -10,8 +11,8 @@ export const fields = {
     sponsor: { key: '_x006d_c95StringId', name: 'Sponsor', type: types.person },
     description: { key: 'p1p2', name: 'Description' },
     isReportable: { key: 'Reportable', name: 'Reportable' },
-    office: { key: 'gvpm', name: 'Office' },
-    officesParticipating: { key: 'Offices_x0020_Participating', name: 'Offices Participating', type: types.mutliLine },
+    office: { key: 'OfficeId', name: 'Office', type: types.office },
+    officesParticipating: { key: 'Offices_x0020_ParticipatingId', name: 'Offices Participating', type: types.office },    
     remedyTicketNo: { key: 'ia5c', name: 'Remedy Ticket No.' },
     siteUrl: { key: 'Site_x0020_URL', name: 'Site URL', type: types.url },
     metaData: { key: 'Meta_x0020_Data', name: 'Meta Data', type: types.mutliLine },

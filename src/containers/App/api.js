@@ -6,6 +6,11 @@ export const getProjectRegistry = () => (
     site.lists.getByTitle('_ProjectRegistry')
 );
 
+export const getOffices = () => (
+    site.lists.getByTitle('_ProjectRegistryOffices')
+);
+
+
 export const getUsers = () => (
     site.siteUsers
 );

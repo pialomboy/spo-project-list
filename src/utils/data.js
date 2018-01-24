@@ -1,5 +1,6 @@
 import React from 'react';
-import keyBy from 'lodash.keyby';
+import keyBy from 'lodash/keyBy';
+import isNil from 'lodash/isNil';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 
 import { renderMultiLine } from './string';
@@ -11,11 +12,26 @@ export const types = {
     title: 'title',
     mutliLine: 'multiLine',
     person: 'person',
+    office: 'office',
     date: 'date',
 };
 
-export function mapColumns(fields, keys, users) {
-    const mappedUsers = keyBy(users, 'Id');
+
+function renderOffices(officeIds = [], offices = {}) {
+    let ids = [];
+    if (!isNil(officeIds)) {
+        ids = Array.isArray(officeIds) ? officeIds : [officeIds];
+    }
+    
+    return ids.map(id => (
+        offices[id].Title
+    )).join(', ');
+}
+
+
+export function mapColumns(fields, keys, lookups = {}) {
+    const mappedUsers = keyBy(lookups.users, 'Id');
+    const mappedOffices = keyBy(lookups.offices, 'Id');
 
     return keys.map((key) => {
         const field = fields[key];
@@ -38,6 +54,8 @@ export function mapColumns(fields, keys, users) {
                         return renderMultiLine(selected);
                     case types.person:
                         return <Link href={`mailto:${mappedUsers[selected].Email}`} data-selection-invoke>{mappedUsers[selected].Title}</Link>;
+                    case types.office:
+                        return <span>{renderOffices(selected, mappedOffices)}</span>;
                     case types.date:
                         return <span>{formatDate(selected)}</span>;
                     case types.title:

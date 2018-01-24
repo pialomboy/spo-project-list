@@ -7,8 +7,16 @@ import { mapColumns } from '../../utils/data';
 import ProjectList from '../ProjectList';
 import ProjectDetails from '../ProjectDetails';
 
-import { getProjectRegistry, getUsers } from './api';
-import { fields, keys } from './data';
+import {
+  getUsers,
+  getOffices,
+  getProjectRegistry,
+} from './api';
+
+import {
+  keys,
+  fields,
+} from './data';
 
 
 class App extends Component {
@@ -28,14 +36,28 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.loadLists();
+  }
+
+  loadLists = () => {
     Promise.all([
       getProjectRegistry().items.get(),
+      getOffices().items.get(),
       getUsers().get(),
     ])
-      .then(([items, users]) => {
+      .then(([items, offices, users]) => {
+        // console.log('items: ', items);
+        // console.log('offices: ', offices);
+        // console.log('users: ', users);
+
+        const lookups = {
+          users,
+          offices,
+        };
+        
         const columns = {
-          home: mapColumns(fields, keys.home, users),
-          details: mapColumns(fields, keys.details, users),
+          home: mapColumns(fields, keys.home, lookups),
+          details: mapColumns(fields, keys.details, lookups),
         };
 
         this.setState({
@@ -47,12 +69,6 @@ class App extends Component {
       .catch((error) => {
         this.setState({ error: error.message });
       });
-
-    // // log all items
-    // getProjectRegistry().items.get()
-    //   .then((r) => {
-    //     console.log('ALL: ', r);
-    //   });
   }
 
   showDetails = (item) => {
@@ -82,14 +98,14 @@ class App extends Component {
     if (loading) {
       return <Loading />;
     }
-    
+
     // PROJECTS LIST AND DETAILS
     const listProps = {
       items,
       columns: columns.home,
       onSelect: this.showDetails,
     };
-    
+
     const detailsProps = {
       item,
       columns: columns.details,

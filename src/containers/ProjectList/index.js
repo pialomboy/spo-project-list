@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
+import { SelectionMode, Selection, ConstrainMode } from 'office-ui-fabric-react/lib/DetailsList';
 
 import List, { handleSelectItem } from '../../components/List';
 
@@ -20,6 +20,7 @@ class ProjectList extends PureComponent {
         columns={this.props.columns}
         selectionMode={SelectionMode.none}
         selection={this.selection}
+        constrainMode={ConstrainMode.unconstrained}
       />
     );
   }

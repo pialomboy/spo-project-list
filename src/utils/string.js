@@ -1,5 +1,6 @@
-
 import React from 'react';
+
+
 /**
  * Escapes any special characters in a string
  * 
