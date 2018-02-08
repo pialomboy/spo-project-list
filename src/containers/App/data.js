@@ -12,8 +12,8 @@ export const fields = {
     description: { key: 'p1p2', name: 'Description' },
     isReportable: { key: 'Reportable', name: 'Reportable' },
     office: { key: 'OfficeId', name: 'Office', type: types.office },
-    officesParticipating: { key: 'Offices_x0020_ParticipatingId', name: 'Offices Participating', type: types.office },    
-    remedyTicketNo: { key: 'ia5c', name: 'Remedy Ticket No.' },
+    officesParticipating: { key: 'Offices_x0020_ParticipatingId', name: 'Offices Participating', type: types.office },
+    remedyTicketNo: { key: 'ia5c', name: 'Remedy Ticket No.', type: types.remedy },
     siteUrl: { key: 'Site_x0020_URL', name: 'Site URL', type: types.url },
     metaData: { key: 'Meta_x0020_Data', name: 'Meta Data', type: types.mutliLine },
 };
@@ -43,3 +43,9 @@ export const keys = {
         'metaData',
     ],
 };
+
+
+export const searchFields = [
+    ...keys.home,
+    'metaData',
+].map(x => fields[x].key);

@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 
 /**
@@ -22,6 +22,7 @@ export function escapeRegExp(string) {
  * @return {string}                 - comma seperated string from htmlString
  */
 export function renderMultiLine(htmlString) {
-    const html = { __html: htmlString };
-    return <div dangerouslySetInnerHTML={html} />;  // eslint-disable-line
+    // const html = { __html: htmlString };
+    // return <div dangerouslySetInnerHTML={html} />;  // eslint-disable-line
+    return htmlString;
 }

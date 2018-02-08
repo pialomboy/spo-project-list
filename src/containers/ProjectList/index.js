@@ -13,11 +13,15 @@ class ProjectList extends PureComponent {
   }
   
   render() {
+    const { items, columns, searchFields } = this.props; 
+
     return (
       <List
         title={'Project Registry'}
-        items={this.props.items}
-        columns={this.props.columns}
+        items={items}
+        columns={columns}
+        searchKey={'mapped'}
+        searchFields={searchFields}
         selectionMode={SelectionMode.none}
         selection={this.selection}
         constrainMode={ConstrainMode.unconstrained}

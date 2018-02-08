@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import orderBy from 'lodash/orderBy';
+import isEqual from 'lodash/isEqual';
 
 import { escapeRegExp } from '../../utils/string';
 
@@ -50,34 +51,45 @@ class List extends React.PureComponent {
     super(props);
     this.state = {
       items: props.items,
-      columns: props.columns,
+      columns: this.bindColumnClick(props.columns),
       sortOrder: props.columns.map((col) => col.key),
+      searchValue: '',
     };
   }
 
   componentDidMount() {
-    // bind onClick's to column headers
-    this.bindColumnClick();
+    const { sortBy } = this.props;
+    if (sortBy) {
+      sortBy.forEach((x) => {
+        const column = this.state.columns.find((col) => col.key === x);
+        this.handleColumnClick(null, column);
+      });
+    }
   }
 
+
   componentWillReceiveProps(nextProps) {
-    // if we recieve items when currently empty, update to new items
-    if (!this.props.items.length && nextProps.items.length) {
-      this.setState({ items: nextProps.items });
+    const { items } = this.props;
+    // different items, updae local ones (deep compare...)
+    if (!isEqual(items, nextProps.items)) {
+      this.setState({
+        items: nextProps.items,
+        columns: this.bindColumnClick(nextProps.columns),
+        sortOrder: nextProps.columns.map((col) => col.key),
+        searchValue: '',
+      });
     }
   }
 
   /**
    * Binds the method for clicking on a column header to each column
    */
-  bindColumnClick = () => {
-    const { columns } = this.state;
-    const newColumns = columns.map((col) => ({
+  bindColumnClick = (columns) => (
+    columns.map((col) => ({
       ...col,
       ...!col.notSortable && { onColumnClick: this.handleColumnClick },
-    }));
-    this.setState({ columns: newColumns });
-  };
+    }))
+  )
 
   /**
    * Handles filtering list items displayed based off value
@@ -85,11 +97,23 @@ class List extends React.PureComponent {
    * @param {string} value         - value to filter results by
    */
   handleSearch = (value) => {
+    const { items, searchKey, searchFields } = this.props;
     const re = new RegExp(escapeRegExp(value), 'i');
-    const items = this.props.items.filter((item) => (
-      Object.values(item).some((x) => re.test(x))
-    ));
-    this.setState({ items });
+
+    const filteredItems = items.filter((item) => {
+      let keys = Object.keys(item);
+      if (searchFields && searchFields.length) {
+        keys = keys.filter((key) => searchFields.includes(key));
+      }
+      
+      if (searchKey) {
+        return keys.some((x) => re.test(item[x][searchKey]))
+      }
+      
+      return keys.some((x) => re.test(item[x]))
+    });
+
+    this.setState({ items: filteredItems, searchValue: value });
   }
 
   /**
@@ -166,7 +190,7 @@ class List extends React.PureComponent {
       onRenderColumnHeaderTooltip: (tooltipHostProps) => (
         tooltipHostProps.content ?
           <TooltipHost {...tooltipHostProps} /> :
-          <div>{tooltipHostProps.children}</div>
+          <span>{tooltipHostProps.children}</span>
       ),
     })
   )
@@ -193,7 +217,7 @@ class List extends React.PureComponent {
 
   render() {
     const { title, empty, ...list } = this.props;
-    const { items, columns } = this.state;
+    const { items, columns, searchValue } = this.state;
 
     const listProps = {
       ...list,
@@ -203,20 +227,23 @@ class List extends React.PureComponent {
       onRenderItemColumn: this.renderItemColumn,
     };
 
+    const searchProps = {
+      value: searchValue,
+      onChange: this.handleSearch,
+    };
+
     return (
       <Wrapper>
         <Header>
           {
-            title && 
+            title &&
             <Title>{title}</Title>
           }
-          <Search
-            onChange={this.handleSearch}
-          />
+          <Search {...searchProps} />
         </Header>
 
         {
-          this.props.items.length ?
+          items.length ?
             <DetailsList {...listProps} /> :
             <EmptyMessage {...empty} />
         }

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import Loading from '../../components/Loading';
-import { mapColumns } from '../../utils/data';
+import { mapItems, mapColumns } from '../../utils/data';
 
 import ProjectList from '../ProjectList';
 import ProjectDetails from '../ProjectDetails';
@@ -16,6 +16,7 @@ import {
 import {
   keys,
   fields,
+  searchFields,
 } from './data';
 
 
@@ -23,7 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: {},
+      item: { [fields.title.key]: '' },
       items: [],
       columns: {
         home: [],
@@ -39,36 +40,34 @@ class App extends Component {
     this.loadLists();
   }
 
-  loadLists = () => {
-    Promise.all([
-      getProjectRegistry().items.get(),
-      getOffices().items.get(),
-      getUsers().get(),
-    ])
-      .then(([items, offices, users]) => {
-        // console.log('items: ', items);
-        // console.log('offices: ', offices);
-        // console.log('users: ', users);
+  loadLists = async () => {
+    try {
+      const [spItems, offices, users] = await Promise.all([
+        getProjectRegistry().items.get(),
+        getOffices().items.get(),
+        getUsers().get(),
+      ]);
+      
+      const lookups = {
+        users,
+        offices,
+      };
+  
+      const items = mapItems(spItems, fields, Object.keys(fields), lookups);
 
-        const lookups = {
-          users,
-          offices,
-        };
-        
-        const columns = {
-          home: mapColumns(fields, keys.home, lookups),
-          details: mapColumns(fields, keys.details, lookups),
-        };
-
-        this.setState({
-          items,
-          columns,
-          loading: false,
-        });
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
+      const columns = {
+        home: mapColumns(fields, keys.home, lookups),
+        details: mapColumns(fields, keys.details, lookups),
+      };
+  
+      this.setState({
+        items,
+        columns,
+        loading: false,
       });
+    } catch(error) {
+      this.setState({ error: error.message });
+    }
   }
 
   showDetails = (item) => {
@@ -102,14 +101,15 @@ class App extends Component {
     // PROJECTS LIST AND DETAILS
     const listProps = {
       items,
+      searchFields,
       columns: columns.home,
       onSelect: this.showDetails,
     };
-
+    
     const detailsProps = {
       item,
       columns: columns.details,
-      title: `${item[fields.title.key]} (${item[fields.acronym.key]})`,
+      title: item[fields.title.key].mapped,
       hidden: hideDetails,
       onDismiss: this.hideDetails,
     };
